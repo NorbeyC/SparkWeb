@@ -11,16 +11,12 @@ public class SparkWeb {
         public static void main(String[] args) {
             staticFiles.location("/webapp");
             port(getPort());
-            get("/hello", (req, res) -> {
-                String name = req.queryParams("name"); 
-                URL url = new URL(name);
-                return "Hello "+ name;
-                });
 
-            get("/intraday", (req, res) -> {
-                String data = req.queryParams("name");
-                res.type("/application.json");
-                return HttpConnection.getIntraDay();
+            get("/intraday","application/json", (req, res) -> {
+                String data = req.queryParams("id");
+                String typ = req.queryParams("type");
+                res.type("application/json");
+                return HttpConnection.getHistory(data, typ);
             });
         }
 

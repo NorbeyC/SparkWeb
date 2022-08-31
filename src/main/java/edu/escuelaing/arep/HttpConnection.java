@@ -12,11 +12,13 @@ import spark.Response;
 public class HttpConnection {
 
     private static final String USER_AGENT = "Mozilla/5.0";
-    private static final String GET_URL = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=demo";
-    private static final String API_KEY = "ZQLCW1CEFTEUAAIW";
+    private static final String url = "&interval=5min&outputsize=full&apikey=ZQLCW1CEFTEUAAIW";
+    private static String GET_URL;
 
-    public static String getIntraDay() throws IOException {
-
+    public static String getHistory(String data, String typ) throws IOException {
+        GET_URL = "https://www.alphavantage.co/query?function=TIME_SERIES_";
+        GET_URL = GET_URL + typ + "&symbol="+ data + url;
+        System.out.println(GET_URL);
         URL obj = new URL(GET_URL);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
